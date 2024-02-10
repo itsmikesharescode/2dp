@@ -5,9 +5,7 @@
     import { onAuthStateChanged } from "firebase/auth";
 	import BinanceCalls from "./BinanceCalls.svelte";
 	import type { PageServerData } from "./$types";
-	import { createSearchStore, searchHandler } from "$lib";
-	import { onDestroy } from "svelte";
-
+	
     export let data: PageServerData;
 
     //logs user using gmail

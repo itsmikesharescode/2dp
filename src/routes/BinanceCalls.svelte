@@ -8,14 +8,14 @@
 
     export let symbols: SymbolTypes[];
 
-     //all about reactive search
-     $: domSymbols = symbols.map( (symbols) => ({
+    //all about reactive search
+    let domSymbols = symbols.map( (symbols) => ({
         ...symbols,
         targetSearch: `${symbols.symbol}`
     }) );
 
-    $: searchStore = createSearchStore(domSymbols);
-    $: unsubscribe = searchStore.subscribe((model) => searchHandler(model));
+    let searchStore = createSearchStore(domSymbols ?? []);
+    let unsubscribe = searchStore.subscribe((model) => searchHandler(model));
     
     onDestroy( () => unsubscribe());
 

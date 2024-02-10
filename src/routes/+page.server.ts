@@ -9,6 +9,8 @@ export const load: PageServerLoad = async ({fetch}) => {
     //this can be type easy with "as" but i have to avoid;
     const symbols: SymbolTypes[] = binance.symbols;
 
+    console.log(symbols)
+
     return {
         symbols: symbols
     };
