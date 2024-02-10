@@ -41,7 +41,10 @@
             const {data, error} = await $supabase.from("binance_records").select("*").eq("user_uid", hasUser.uid);
             $savedCharts = data;
 
-        }else $userState = null;
+        }else {
+            $userState = null;
+            $savedCharts = null;
+        }
 
     });
 
