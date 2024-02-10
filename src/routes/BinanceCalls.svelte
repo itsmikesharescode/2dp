@@ -28,6 +28,8 @@
     />
 </div>
 
-{#each $searchStore.sanitized as symbol }
-    <Button>{symbol.symbol}</Button>
-{/each}
+<div class="mt-5 max-h-[70dvh] border-2 overflow-y-auto overflow-x-hidden flex flex-col gap-2 p-4">
+    {#each $searchStore.sanitized as symbol }
+        <Button class="w-full">{symbol.symbol}</Button>
+    {/each}
+</div>
