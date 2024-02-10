@@ -3,7 +3,12 @@
     import { auth, ggAuth } from "$lib/firebase/firebaseConfig";
 	import { Button } from "$lib/components/ui/button";
     import { onAuthStateChanged } from "firebase/auth";
+	import BinanceCalls from "./BinanceCalls.svelte";
+	import type { PageServerData } from "./$types";
+	import { createSearchStore, searchHandler } from "$lib";
+	import { onDestroy } from "svelte";
 
+    export let data: PageServerData;
 
     //logs user using gmail
     const createGGlog = async () =>
@@ -33,11 +38,14 @@
 </script>
 
 {#if userListener}
-    <Button on:click={logoutUser}>Sign Out</Button>
+    <div class="flex flex-col gap-2 sm:max-w-sm mx-auto min-h-[60dvh] justify-center">
+        <Button on:click={logoutUser}>Sign Out</Button>
 
+        <div class="">
+            <BinanceCalls symbols={data.symbols} />
+        </div>
+    </div>
 
-
-    
 {:else}
     <div class="flex flex-col gap-2 sm:max-w-sm mx-auto min-h-[60dvh] justify-center">
         <div class="flex flex-col gap-2">
