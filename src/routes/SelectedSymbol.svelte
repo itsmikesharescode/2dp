@@ -48,7 +48,7 @@
         type: string
         data: {
             msg: string
-            savedChart: SavedChartsType[]
+            userCharts: SavedChartsType[]
         }
     }
 
@@ -59,14 +59,14 @@
         savedChartLoader = true;
         return async ({ result, update }) => 
         {
-            const {status, data: {msg, savedChart} } = result as ServerNews;
+            const {status, data: {msg, userCharts} } = result as ServerNews;
                 
             switch (status) {
                 case 200:
                     toast.success("Success", {description: msg});
                     savedChartLoader = false;
                     $showActiveTrade = false;
-                    
+                    $savedCharts = userCharts;
                     break;
                 
                 case 400:
@@ -96,7 +96,9 @@
             <AlertDialog.Title><Badge>{symbol.symbol}</Badge>
 
                 <div class="float-right">
-                    <button on:click={() => selectedSymbolDialog = false}><X /></button>
+                    <button disabled={savedChartLoader} on:click={() => selectedSymbolDialog = false}>
+                        <X />
+                    </button>
                 </div>
             </AlertDialog.Title>
             
@@ -114,6 +116,7 @@
             <form method="post" action="?/saveChart" enctype="multipart/form-data" use:enhance={savedChartNews}>
                 <input disabled={savedChartLoader} name="data_array" type="hidden" class="hidden" value={JSON.stringify(data)} hidden />
                 <input disabled={savedChartLoader} name="user_uid" type="hidden" class="hidden" value={$userState?.uid} hidden />
+                <input disabled={savedChartLoader} name="symbol_name" type="hidden" class="hidden" value={symbol.symbol} hidden />
                 <Button disabled={savedChartLoader} type="submit">
                     <MyLoader name="Save Chart" loader={savedChartLoader}  loader_name="Saving..." />
                 </Button>

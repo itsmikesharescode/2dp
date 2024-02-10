@@ -92,4 +92,5 @@ export type SavedChartsType = {
     created_at: string
     user_uid: string
     data_array: string
+    symbol_name: string
 }

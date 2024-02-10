@@ -5,10 +5,10 @@
     import { createSearchStore, savedCharts, searchHandler, showActiveTrade } from '$lib';
     import { onDestroy } from 'svelte';
 	import SelectedSymbol from './SelectedSymbol.svelte';
-	import { fade, fly, scale } from 'svelte/transition';
+	import { fade, fly, } from 'svelte/transition';
 	import { flip } from 'svelte/animate';
 	import Button from '$lib/components/ui/button/button.svelte';
-	import CharterChange from './CharterChange.svelte';
+	import SavedCharts from './SavedCharts.svelte';
 
     export let symbols: SymbolTypes[];
 
@@ -50,15 +50,10 @@
             {/each}
         </div>
     {:else}
-        <div class="mt-4 overflow-y-auto overflow-x-hidden flex flex-col gap-2 sm:px-4" in:fade={{duration:300}}>
+        <div class="mt-4 overflow-y-auto overflow-x-hidden flex flex-col gap-2 sm:px-4" in:fade|local={{duration:300}}>
             
-            <div class="flex flex-col gap-4">
-                {#each $savedCharts ?? [] as savedChart }
-                    <div class="w-full">
-                        <p class="leading-7 [&:not(:first-child)]:mt-6">Date Saved</p>
-                        <CharterChange data={JSON.parse(savedChart.data_array)} />
-                    </div>
-                {/each}
+            <div class="flex flex-wrap overflow-hidden { $savedCharts?.length ?? 0 > 2 ? "justify-center" : "justify-start" } gap-4">
+                <SavedCharts />
             </div>
            
         </div>
