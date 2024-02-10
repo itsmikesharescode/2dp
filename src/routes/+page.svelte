@@ -39,9 +39,11 @@
     <div class="flex flex-col gap-2 sm:max-w-lg mx-auto min-h-[60dvh] justify-center mt-[10dvh]">
         <Button on:click={logoutUser}>Sign Out</Button>
 
-        <div class="">
-            <BinanceCalls symbols={data.symbols} />
-        </div>
+        {#if data.symbols}
+            <div class="">
+                <BinanceCalls symbols={data.symbols} />
+            </div>
+        {/if}
     </div>
 
 {:else}

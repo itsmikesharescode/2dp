@@ -28,7 +28,7 @@
     />
 </div>
 
-<div class="mt-5 max-h-[70dvh] border-2 overflow-y-auto overflow-x-hidden flex flex-col gap-2 p-4">
+<div class="mt-5 max-h-[70dvh] overflow-y-auto overflow-x-hidden flex flex-col gap-2 p-4">
     {#each $searchStore.sanitized as symbol }
         <Button class="w-full">{symbol.symbol}</Button>
     {/each}

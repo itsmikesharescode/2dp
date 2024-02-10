@@ -7,7 +7,7 @@ export const load: PageServerLoad = async ({fetch}) => {
     const binance = await res.json();
 
     //this can be type easy with "as" but i have to avoid;
-    const symbols: SymbolTypes[] = binance.symbols;
+    const symbols: SymbolTypes[] | undefined = binance.symbols;
 
     console.log(symbols)
 
