@@ -78,3 +78,11 @@ export type SymbolTypes = {
     timeInForce: string[]
 
 };
+
+export type CandaleTypes = {
+    time: string
+    open: number
+    high: number
+    low: number
+    close: number
+}

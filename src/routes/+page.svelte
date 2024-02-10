@@ -5,6 +5,7 @@
     import { onAuthStateChanged } from "firebase/auth";
 	import BinanceCalls from "./BinanceCalls.svelte";
 	import type { PageServerData } from "./$types";
+
 	
     export let data: PageServerData;
 
@@ -32,8 +33,8 @@
 
     onAuthStateChanged(auth, (hasUser) => userListener = hasUser);
 
-
 </script>
+
 
 {#if userListener}
     <div class="flex flex-col gap-2 sm:max-w-lg mx-auto min-h-[60dvh] justify-center mt-[10dvh]">

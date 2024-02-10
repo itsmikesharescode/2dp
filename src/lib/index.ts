@@ -1,6 +1,8 @@
 import {writable} from "svelte/store";
 import type { SearchStoreModel } from "./types";
 
+export const bindWindow = writable<HTMLDivElement>()
+
 //search stores
 export const createSearchStore = <T extends Record<PropertyKey, any>>(data: T[]) => 
 { 
