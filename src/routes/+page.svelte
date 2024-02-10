@@ -5,8 +5,10 @@
     import { onAuthStateChanged } from "firebase/auth";
 	import BinanceCalls from "./BinanceCalls.svelte";
 	import type { PageServerData } from "./$types";
+	import DarkMode from "$lib/components/darkmode/DarkMode.svelte";
+	import { savedCharts, supabase, userState } from "$lib";
+	import { onMount } from "svelte";
 
-	
     export let data: PageServerData;
 
     //logs user using gmail
@@ -29,16 +31,29 @@
     //logout user using idk
     const logoutUser = () => auth.signOut();
 
-    let userListener: User | null = null;
+    let userObj: User | null = null;
 
-    onAuthStateChanged(auth, (hasUser) => userListener = hasUser);
+    onAuthStateChanged(auth, async (hasUser) => {
+        userObj = hasUser;
+      
+        if(hasUser){
+            $userState = hasUser;
+            const {data, error} = await $supabase.from("binance_records").select("*").eq("user_uid", hasUser.uid);
+            $savedCharts = data;
+
+        }else $userState = null;
+
+    });
 
 </script>
 
-
-{#if userListener}
-    <div class="flex flex-col gap-2 sm:max-w-lg mx-auto min-h-[60dvh] justify-center mt-[10dvh]">
-        <Button on:click={logoutUser}>Sign Out</Button>
+{#if userObj}
+    <div class="flex flex-col gap-4  mx-auto min-h-[60dvh] justify-center mt-[10dvh]">
+        <h4 class="scroll-m-20 text-xl font-semibold tracking-tight">Hello, {userObj.displayName}</h4>
+        <div class="flex items-center gap-4 justify-between">
+            <Button on:click={logoutUser} class="w-full sm:max-w-fit">Sign Out</Button>
+            <DarkMode />
+        </div>
 
         {#if data.symbols}
             <div class="">

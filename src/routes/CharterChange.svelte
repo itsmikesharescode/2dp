@@ -7,14 +7,14 @@
     import {Chart, CandlestickSeries} from 'svelte-lightweight-charts';
     
     let widthBinder = 0;
-    
+
     export let data: CandaleTypes[]
 
     onMount( () => widthBinder = $bindWindow.clientWidth)
 
     $: options = {
         width: widthBinder,
-        height: 300,
+        height: 400,
         layout: {
             background: {
                 type: ColorType.Solid,
@@ -40,8 +40,6 @@
             borderColor: 'rgba(197, 203, 206, 0.8)',
         },
     }
-
-    
 
 </script>
 

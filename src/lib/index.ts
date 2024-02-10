@@ -1,7 +1,14 @@
 import {writable} from "svelte/store";
-import type { SearchStoreModel } from "./types";
+import type { SavedChartsType, SearchStoreModel } from "./types";
+import type { User } from "firebase/auth";
+import type { Session,SupabaseClient } from "@supabase/supabase-js";
 
-export const bindWindow = writable<HTMLDivElement>()
+export const bindWindow = writable<HTMLDivElement>();
+
+export const userState = writable<User | null>();
+export const showActiveTrade = writable(false);
+export const supabase = writable<SupabaseClient>();
+export const savedCharts = writable<SavedChartsType[] | null>(null);
 
 //search stores
 export const createSearchStore = <T extends Record<PropertyKey, any>>(data: T[]) => 

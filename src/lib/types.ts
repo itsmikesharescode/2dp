@@ -86,3 +86,10 @@ export type CandaleTypes = {
     low: number
     close: number
 }
+
+export type SavedChartsType = {
+    id: number
+    created_at: string
+    user_uid: string
+    data_array: string
+}
