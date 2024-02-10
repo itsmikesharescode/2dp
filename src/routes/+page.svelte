@@ -1,8 +1,11 @@
 <script lang="ts">
-    import { GoogleAuthProvider, signInWithPopup, type UserCredential } from "firebase/auth";
+    import { GoogleAuthProvider, signInWithPopup, type User, type UserCredential } from "firebase/auth";
     import { auth, ggAuth } from "$lib/firebase/firebaseConfig";
 	import { Button } from "$lib/components/ui/button";
+    import { onAuthStateChanged } from "firebase/auth";
 
+
+    //logs user using gmail
     const createGGlog = async () =>
     {
         signInWithPopup(auth, ggAuth).then( (result: UserCredential) => {
@@ -19,15 +22,32 @@
         });
     };
 
+    //logout user using idk
+    const logoutUser = () => auth.signOut();
+
+    let userListener: User | null = null;
+
+    onAuthStateChanged(auth, (hasUser) => userListener = hasUser);
+
+
 </script>
 
-<div class="">
-    <div class="">
-        <h4 class="scroll-m-20 text-xl font-semibold tracking-tight">
-            Come and Explore!
-        </h4>
+{#if userListener}
+    <Button on:click={logoutUser}>Sign Out</Button>
 
-        <small class="text-sm font-medium leading-none">Email address</small>
+
+
+    
+{:else}
+    <div class="flex flex-col gap-2 sm:max-w-sm mx-auto min-h-[60dvh] justify-center">
+        <div class="flex flex-col gap-2">
+            <h4 class="scroll-m-20 text-xl font-semibold tracking-tight text-center">
+                Come and Explore!
+            </h4>
+
+            <small class="text-sm font-medium leading-none text-center">Explore the world of Crypto!!!!</small>
+        </div>
+        <Button on:click={createGGlog}>Sign in via Google</Button>
     </div>
-    <Button on:click={createGGlog}>Sign in via Google</Button>
-</div>
+{/if}
+
